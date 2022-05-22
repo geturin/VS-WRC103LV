@@ -385,7 +385,7 @@ void turn_right(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=29;
+	float P=30;
 	float D=12;
 	//short I=1;
 	short now =0;
@@ -396,7 +396,7 @@ void turn_right(void){
 	{
 		left = ADRead(0);
 
-		now = 870 - left;
+		now = 880 - left;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
@@ -420,7 +420,7 @@ void turn_right(void){
 	while (1)
 	{
 		left = ADRead(0);
-		now=left-300;
+		now=left-250;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
@@ -451,7 +451,7 @@ void turn_left(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=29;
+	float P=30;
 	float D=12;
 	//short I=1;
 	short now =0;
@@ -462,7 +462,7 @@ void turn_left(void){
 	{
 		right = ADRead(1);
 
-		now = 870 - right;
+		now = 880 - right;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
@@ -484,7 +484,7 @@ void turn_left(void){
 	while (1)
 	{
 		right = ADRead(1);
-		now=right-300;
+		now=right-250;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
@@ -510,7 +510,7 @@ void move(void)
 	float pastAD0=0;
 	float pastAD1=0;
 	//制御目標値
-	short MID=870;
+	short MID=850;
 	short right_MID=400;
 	short left_MID=400;
 	//ゲイン係数
@@ -520,7 +520,7 @@ void move(void)
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=4.2;
+	float SPEED=4.5;
 	int base_speed=3000;
 	int left_base_speed = 3000;
 	int counter =0;
@@ -645,6 +645,35 @@ void turnleft(){
 	}
 }
 
+void easy_raod(void){
+	//easy road
+	//succeed with SPEED=4.2 P=9 D=4.5
+	go_to(3);
+	U_turn(1);
+	go_to(3);
+	U_turn(0);
+	go_to(1);
+	U_turn(0);
+	//check point c over, robot will in (3,2)
+	go_to(2);
+	turn_right();
+	go_to(3);
+	U_turn(0);
+	go_to(2);
+	U_turn(0);
+	//check point b over, robot will in (2,0)
+	go_to(2);
+	turn_right();
+	go_to(3);
+	U_turn(0);
+	go_to(2);
+	U_turn(0);
+	//check point a over,robot will in (0,1)
+	go_to(3);
+	//goal?
+	pass();
+	BuzzerStart();
+}
 
 #define ADC_DONE		0x80000000
 #define ADC_OVERRUN		0x40000000

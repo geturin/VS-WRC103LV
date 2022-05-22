@@ -20,12 +20,8 @@ void main(void)
 	while(getSW() != 1);	//ボタンが押されるまで待つ
 	while(getSW() == 1);	//ボタンが離されるまで待つ
 
-	while (getSW()!=1)
-	{
-		go_to(2);
-		U_turn(1);
-	}	
-	
+	easy_road();
+
 	}
 }
 
