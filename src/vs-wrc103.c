@@ -385,8 +385,8 @@ void turn_right(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=23;
-	float D=9;
+	float P=29;
+	float D=12;
 	//short I=1;
 	short now =0;
 	float SPEED=0;
@@ -396,7 +396,7 @@ void turn_right(void){
 	{
 		left = ADRead(0);
 
-		now = 700 - left;
+		now = 870 - left;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
@@ -420,7 +420,7 @@ void turn_right(void){
 	while (1)
 	{
 		left = ADRead(0);
-		now=left-300;
+		now=left-400;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
@@ -451,8 +451,8 @@ void turn_left(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=30;
-	float D=13;
+	float P=29;
+	float D=12;
 	//short I=1;
 	short now =0;
 	float SPEED=0;
@@ -462,13 +462,13 @@ void turn_left(void){
 	{
 		right = ADRead(1);
 
-		now = 700 - right;
+		now = 870 - right;
 
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
+		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=1000)
+		if (SPEED<=3000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -484,11 +484,11 @@ void turn_left(void){
 	while (1)
 	{
 		right = ADRead(1);
-		now=right-300;
+		now=right-400;
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
+		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=1000)
+		if (SPEED<=3000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -501,54 +501,6 @@ void turn_left(void){
 			}
 		}
 	}
-	//test
-
-		while (1)
-	{
-		right = ADRead(1);
-
-		now = 600 - right;
-
-		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
-		past=now;
-		//plus = plus+now;
-		if (SPEED<=1000)
-		{	
-			counter = counter+1;
-			if (counter==wait_time)
-			{
-
-			past=0;
-			counter=0;
-			motor_stop();
-			break;
-			}		
-		}
-	}
-
-	/*
-	while (1)
-	{
-		right = ADRead(1);
-		now=right-300;
-		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,0,0,0,0,0);
-		past=now;
-		if (SPEED<=1000)
-		{	
-			counter = counter+1;
-			if (counter==wait_time)
-			{
-
-			past=0;
-			counter=0;
-			motor_stop();
-			return;
-			}
-		}
-	}
-	*/
 }
 
 
@@ -562,7 +514,7 @@ void move(void)
 	short right_MID=400;
 	short left_MID=400;
 	//ゲイン係数
-	float P=10;
+	float P=9;
 	float D=4.5;
 	//モーター方向調整
 	short left_SPEED=-1;
