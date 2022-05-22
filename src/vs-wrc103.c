@@ -385,79 +385,18 @@ void turn_right(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=30;
-	float D=12;
+	float P=18;
+	float D=10;
 	//short I=1;
 	short now =0;
-	float SPEED=0;
+	float SPEED=20000;
 	short counter=0;
 	short wait_time=6000;
-	while (1)
-	{
-		left = ADRead(0);
 
-		now = 880 - left;
-
-		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
-		past=now;
-		//plus = plus+now;
-		if (SPEED<=5000)
-		{	
-			counter = counter+1;
-			if (counter==wait_time)
-			{
-				/* code */
-			past=0;
-			counter=0;
-			break;
-			}
-			
-			
-		}
-	}
-
-	while (1)
-	{
-		left = ADRead(0);
-		now=left-250;
-		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
-		past=now;
-		if (SPEED<=5000)
-		{	
-			counter = counter+1;
-			if (counter==1500)
-			{
-				/* code */
-			past=0;
-			counter=0;
-			motor_stop();
-			return;
-			}
-		}
-	}
+	Mtr_Run_lv(0.4*SPEED,-SPEED,0,0,0,0);
+	Wait(150);
+	motor_stop();
 	
-}
-
-
-
-
-
-
-
-
-void turn_left(void){
-	short left = ADRead(0);
-	short right = ADRead(1);
-	short past=0;
-	float P=30;
-	float D=12;
-	//short I=1;
-	short now =0;
-	float SPEED=0;
-	short counter=0;
-	short wait_time=6000;
 	while (1)
 	{
 		right = ADRead(1);
@@ -465,7 +404,7 @@ void turn_left(void){
 		now = 880 - right;
 
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		Mtr_Run_lv(0,-SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
 		if (SPEED<=5000)
@@ -486,7 +425,76 @@ void turn_left(void){
 		right = ADRead(1);
 		now=right-250;
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		Mtr_Run_lv(0,-SPEED,0,0,0,0);
+		past=now;
+		if (SPEED<=5000)
+		{	
+			counter = counter+1;
+			if (counter==1500)
+			{
+				/* code */
+			past=0;
+			counter=0;
+			motor_stop();
+			break;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+void turn_left(void){
+	short left = ADRead(0);
+	short right = ADRead(1);
+	short past=0;
+	float P=18;
+	float D=10;
+	//short I=1;
+	short now =0;
+	float SPEED=20000;
+	short counter=0;
+	short wait_time=6000;
+
+	Mtr_Run_lv(SPEED,-0.4*SPEED,0,0,0,0);
+	Wait(150);
+	motor_stop();
+
+	while (1)
+	{
+		left = ADRead(0);
+
+		now = 880 - left;
+
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,0,0,0,0,0);
+		past=now;
+		//plus = plus+now;
+		if (SPEED<=5000)
+		{	
+			counter = counter+1;
+			if (counter==wait_time)
+			{
+				/* code */
+			past=0;
+			counter=0;
+			break;
+			}		
+		}
+	}
+
+	while (1)
+	{
+		left = ADRead(0);
+		now=left-250;
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,0,0,0,0,0);
 		past=now;
 		if (SPEED<=5000)
 		{	
@@ -606,8 +614,8 @@ void turnleft(){
 	right = ADRead(1);
 	left = ADRead(0);
 	short past=0;
-	float P=15;
-	float D=9;
+	float P=20;
+	float D=11;
 	short now =0;
 	float SPEED=0;
 	short counter=0;
