@@ -24,6 +24,10 @@ void main(void)
 	while(getSW() == 1);	//ボタンが離されるまで待つ
 
 	easy_road();
+
+
+
+
 	}
 }
 

@@ -758,6 +758,31 @@ void easy_road(void){
 	BuzzerStart();
 }
 
+void hard_road(void){
+	go_to(4);
+	U_turn(1);
+	go_to(3);
+	//turn right failed 
+	turn_right();
+	//turn right failed
+	go_to(3);
+	turn_left();
+	move();
+	turn_left();
+	go_to(2);
+	turn_left();
+	go_to(4);
+	turn_left();
+	go_to(2);
+	turn_left();
+	go_to(1);
+	turn_left();
+	go_to(1);
+	turn_right();
+	move();
+	pass();
+	move();
+}
 #define ADC_DONE		0x80000000
 #define ADC_OVERRUN		0x40000000
 
