@@ -165,7 +165,7 @@ void turnright();
 //easy road
 void easy_road();
 //hard road
-void hard_road()；
+void hard_road();
 //0:turn right 1:turn left
 void U_turn(int mode);
 // pass the cross i-1 times and stop in the i cross
