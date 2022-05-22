@@ -158,9 +158,12 @@ void turn_left();
 void move();
 void pass();
 void toNEXT();
-void U_turn();
-void go_to();
 void turnleft();
+
+//0:turn right 1:turn left
+void U_turn(int mode);
+// pass the cross i-1 times and stop in the i cross
+void go_to(int i);
 
 
 

@@ -22,19 +22,11 @@ void main(void)
 
 	while (getSW()!=1)
 	{
-		toNEXT();
-		move();
-		turn_left();
-	}
-	
+		go_to(2);
+		U_turn(1);
+	}	
 	
 	}
-	
-
-	
-	
-
-
 }
 
 

@@ -420,7 +420,7 @@ void turn_right(void){
 	while (1)
 	{
 		left = ADRead(0);
-		now=left-400;
+		now=left-300;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
@@ -484,7 +484,7 @@ void turn_left(void){
 	while (1)
 	{
 		right = ADRead(1);
-		now=right-400;
+		now=right-300;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
@@ -577,13 +577,11 @@ void toNEXT(void){
 void U_turn(int mode){
 	if (mode==1)
 	{	
-		move();
 		turn_left();
 		move();
 		turn_left();
 	}
 	else{
-		move();
 		turn_right();
 		move();
 		turn_right();
