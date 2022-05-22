@@ -158,7 +158,9 @@ void turn_left();
 void move();
 void pass();
 void toNEXT();
-
+void U_turn();
+void go_to();
+void turnleft();
 
 
 

@@ -20,51 +20,7 @@ void main(void)
 	while(getSW() != 1);	//ボタンが押されるまで待つ
 	while(getSW() == 1);	//ボタンが離されるまで待つ
 
-	toNEXT();
-	toNEXT();
-	toNEXT();
 	move();
-	turn_right();
-	move();
-	turn_right();
-	toNEXT();
-	toNEXT();
-	toNEXT();
-	move();
-	turn_left();
-	move();
-	turn_left();
-	toNEXT();
-	toNEXT();
-	toNEXT();
-	move();
-	turn_left();
-	toNEXT();
-	move();
-	turn_left();
-	move();
-	turn_left();
-	toNEXT();
-	move();
-	turn_right();
-	move();
-	turn_right();
-	toNEXT();
-	move();
-	turn_left();
-	move();
-	turn_left();
-	toNEXT();
-	move();
-	turn_right();
-	move();
-	turn_right();
-	toNEXT();
-	move();
-	BuzzerStart();
-
-	
-	
 	}
 	
 

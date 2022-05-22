@@ -385,8 +385,8 @@ void turn_right(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=11;
-	float D=5;
+	float P=23;
+	float D=9;
 	//short I=1;
 	short now =0;
 	float SPEED=0;
@@ -402,7 +402,7 @@ void turn_right(void){
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=1500)
+		if (SPEED<=1000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -424,7 +424,7 @@ void turn_right(void){
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=1500)
+		if (SPEED<=1000)
 		{	
 			counter = counter+1;
 			if (counter==1500)
@@ -451,8 +451,8 @@ void turn_left(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=11;
-	float D=5;
+	float P=30;
+	float D=13;
 	//short I=1;
 	short now =0;
 	float SPEED=0;
@@ -462,13 +462,13 @@ void turn_left(void){
 	{
 		right = ADRead(1);
 
-		now = 600 - right;
+		now = 700 - right;
 
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=1500)
+		if (SPEED<=1000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -477,25 +477,70 @@ void turn_left(void){
 			past=0;
 			counter=0;
 			break;
-			}
-			
-			
+			}		
 		}
 	}
 
 	while (1)
 	{
 		right = ADRead(1);
-		now=right-200;
+		now=right-300;
 		SPEED = P*now+D*(now-past);
-		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=1500)
+		if (SPEED<=1000)
 		{	
 			counter = counter+1;
-			if (counter==1000)
+			if (counter==wait_time)
 			{
 				/* code */
+			past=0;
+			counter=0;
+			motor_stop();
+			break;
+			}
+		}
+	}
+	//test
+
+		while (1)
+	{
+		right = ADRead(1);
+
+		now = 600 - right;
+
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,-0.1*SPEED,0,0,0,0);
+		past=now;
+		//plus = plus+now;
+		if (SPEED<=1000)
+		{	
+			counter = counter+1;
+			if (counter==wait_time)
+			{
+
+			past=0;
+			counter=0;
+			motor_stop();
+			break;
+			}		
+		}
+	}
+
+	/*
+	while (1)
+	{
+		right = ADRead(1);
+		now=right-300;
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,0,0,0,0,0);
+		past=now;
+		if (SPEED<=1000)
+		{	
+			counter = counter+1;
+			if (counter==wait_time)
+			{
+
 			past=0;
 			counter=0;
 			motor_stop();
@@ -503,7 +548,7 @@ void turn_left(void){
 			}
 		}
 	}
-	
+	*/
 }
 
 
@@ -517,13 +562,13 @@ void move(void)
 	short right_MID=400;
 	short left_MID=400;
 	//ゲイン係数
-	float P=9;
-	float D=2;
+	float P=10;
+	float D=4.5;
 	//モーター方向調整
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=3.6;
+	float SPEED=4.2;
 	int base_speed=3000;
 	int left_base_speed = 3000;
 	int counter =0;
@@ -549,10 +594,10 @@ void move(void)
 			right_pid = -2000;
 		}
 		
-		if ((SPEED*(left_pid+right_pid))<=2000){
+		if ((SPEED*(left_pid+right_pid))<=4000){
 			counter +=1;
 			Mtr_Run_lv(right_SPEED*(base_speed+SPEED*right_pid),left_SPEED*(left_base_speed+SPEED*left_pid),0,0,0,0);
-			if (counter==4000)
+			if (counter==3000)
 			{	
 				motor_stop();	
 				return;
@@ -575,6 +620,79 @@ void toNEXT(void){
 	move();
 	pass();
 	return;
+}
+
+void U_turn(int mode){
+	if (mode==1)
+	{	
+		move();
+		turn_left();
+		move();
+		turn_left();
+	}
+	else{
+		move();
+		turn_right();
+		move();
+		turn_right();
+
+	}
+	
+}
+
+void go_to(int i){
+
+	while (i>1)
+	{
+		toNEXT();
+		i --;
+	}
+	move();
+	
+}
+
+void turnleft(){
+	int right,left;
+	right = ADRead(1);
+	left = ADRead(0);
+	short past=0;
+	float P=15;
+	float D=9;
+	short now =0;
+	float SPEED=0;
+	short counter=0;
+	short wait_time=6000;
+	SPEED = 8000;
+
+	Mtr_Run_lv(SPEED,-0.3*SPEED,0,0,0,0);
+	Wait(600);
+	motor_stop();
+
+		while (1)
+	{
+		left = ADRead(0);
+
+		now = 500 - left;
+
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		past=now;
+		//plus = plus+now;
+		if (SPEED<=2000)
+		{	
+			counter = counter+1;
+			if (counter==wait_time)
+			{
+				/* code */
+			past=0;
+			counter=0;
+			motor_stop();
+			break;
+			}
+			
+			
+		}
+	}
 }
 
 
