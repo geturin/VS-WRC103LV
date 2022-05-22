@@ -402,7 +402,7 @@ void turn_right(void){
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=3000)
+		if (SPEED<=5000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -424,7 +424,7 @@ void turn_right(void){
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=3000)
+		if (SPEED<=5000)
 		{	
 			counter = counter+1;
 			if (counter==1500)
@@ -468,7 +468,7 @@ void turn_left(void){
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=3000)
+		if (SPEED<=5000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -488,10 +488,10 @@ void turn_left(void){
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=3000)
+		if (SPEED<=5000)
 		{	
 			counter = counter+1;
-			if (counter==wait_time)
+			if (counter==1500)
 			{
 				/* code */
 			past=0;

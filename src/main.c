@@ -24,7 +24,7 @@ void main(void)
 	{
 		toNEXT();
 		move();
-		turn_right();
+		turn_left();
 	}
 	
 	
