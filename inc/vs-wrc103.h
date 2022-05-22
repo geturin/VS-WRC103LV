@@ -158,7 +158,9 @@ void turn_left();
 void move();
 void pass();
 void toNEXT();
+//old type turn
 void turnleft();
+void turnright();
 
 //easy road
 void easy_road();

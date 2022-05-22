@@ -14,6 +14,9 @@ void main(void)
 	//制御周期の設定[単位：Hz　範囲：30.0~]
 	const unsigned short MainCycle = 60;
 	Init(MainCycle);		//CPUの初期設定
+	int SPEED = 20000;
+	short left = ADRead(0);
+	short right = ADRead(1);
 	while (1)
 	{
 	LED(3);
@@ -21,7 +24,6 @@ void main(void)
 	while(getSW() == 1);	//ボタンが離されるまで待つ
 
 	easy_road();
-
 	}
 }
 

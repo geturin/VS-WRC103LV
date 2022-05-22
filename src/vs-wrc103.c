@@ -609,34 +609,29 @@ void go_to(int i){
 	
 }
 
+//old type turn
 void turnleft(){
-	int right,left;
-	right = ADRead(1);
-	left = ADRead(0);
+	short left = ADRead(0);
+	short right = ADRead(1);
 	short past=0;
-	float P=20;
-	float D=11;
+	float P=30;
+	float D=12;
+	//short I=1;
 	short now =0;
 	float SPEED=0;
 	short counter=0;
 	short wait_time=6000;
-	SPEED = 8000;
-
-	Mtr_Run_lv(SPEED,-0.3*SPEED,0,0,0,0);
-	Wait(600);
-	motor_stop();
-
-		while (1)
+	while (1)
 	{
-		left = ADRead(0);
+		right = ADRead(1);
 
-		now = 500 - left;
+		now = 880 - right;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=2000)
+		if (SPEED<=5000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -644,16 +639,93 @@ void turnleft(){
 				/* code */
 			past=0;
 			counter=0;
+			break;
+			}		
+		}
+	}
+
+	while (1)
+	{
+		right = ADRead(1);
+		now=right-250;
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
+		past=now;
+		if (SPEED<=5000)
+		{	
+			counter = counter+1;
+			if (counter==1500)
+			{
+				/* code */
+			past=0;
+			counter=0;
 			motor_stop();
+			break;
+			}
+		}
+	}
+}
+
+void turnright(void){
+	short left = ADRead(0);
+	short right = ADRead(1);
+	short past=0;
+	float P=30;
+	float D=12;
+	//short I=1;
+	short now =0;
+	float SPEED=0;
+	short counter=0;
+	short wait_time=6000;
+	while (1)
+	{
+		left = ADRead(0);
+
+		now = 880 - left;
+
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
+		past=now;
+		//plus = plus+now;
+		if (SPEED<=5000)
+		{	
+			counter = counter+1;
+			if (counter==wait_time)
+			{
+				/* code */
+			past=0;
+			counter=0;
 			break;
 			}
 			
 			
 		}
 	}
+
+	while (1)
+	{
+		left = ADRead(0);
+		now=left-250;
+		SPEED = P*now+D*(now-past);
+		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
+		past=now;
+		if (SPEED<=5000)
+		{	
+			counter = counter+1;
+			if (counter==1500)
+			{
+				/* code */
+			past=0;
+			counter=0;
+			motor_stop();
+			return;
+			}
+		}
+	}
+	
 }
 
-void easy_raod(void){
+void easy_road(void){
 	//easy road
 	//succeed with SPEED=4.2 P=9 D=4.5
 	go_to(3);
@@ -675,7 +747,10 @@ void easy_raod(void){
 	go_to(3);
 	U_turn(0);
 	go_to(2);
-	U_turn(0);
+	//need use old type turn to U turn
+	turnright();
+	move();
+	turn_right();
 	//check point a over,robot will in (0,1)
 	go_to(3);
 	//goal?
