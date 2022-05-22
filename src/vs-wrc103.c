@@ -402,7 +402,7 @@ void turn_right(void){
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
 		//plus = plus+now;
-		if (SPEED<=1000)
+		if (SPEED<=3000)
 		{	
 			counter = counter+1;
 			if (counter==wait_time)
@@ -424,7 +424,7 @@ void turn_right(void){
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
-		if (SPEED<=1000)
+		if (SPEED<=3000)
 		{	
 			counter = counter+1;
 			if (counter==1500)
