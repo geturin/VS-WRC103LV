@@ -535,12 +535,12 @@ void move(void)
 	short left_MID=400;
 	//ゲイン係数
 	float P=9;
-	float D=4.5;
+	float D=5;
 	//モーター方向調整
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=5;
+	float SPEED=3.9;
 	int base_speed=1800;
 	int left_base_speed = 1800;
 	int counter =0;
@@ -814,7 +814,7 @@ void hard_road(int mode){
 	go_to(3);
 	//(1,1)
 	Mtr_Run_lv(0.4*20000,-20000,0,0,0,0);
-	Wait(600);
+	Wait(650);
 	move();
 	pass();
 	move();
@@ -832,7 +832,7 @@ void hard_road(int mode){
 	go_to(2);
 	//(3,2)
 	Mtr_Run_lv(20000,-0.4*20000,0,0,0,0);
-	Wait(600);
+	Wait(650);
 	move();
 	turnright();
 	move();
