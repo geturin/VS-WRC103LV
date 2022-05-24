@@ -385,8 +385,8 @@ void turn_right(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=18;
-	float D=10;
+	float P=12;
+	float D=7;
 	//short I=1;
 	short now =0;
 	float SPEED=20000;
@@ -394,7 +394,13 @@ void turn_right(void){
 	short wait_time=6000;
 
 	Mtr_Run_lv(0.4*SPEED,-SPEED,0,0,0,0);
-	Wait(150);
+	while (1){
+		if (ADRead(1)<=300)
+		{
+			break;
+		}
+		
+	}
 	motor_stop();
 	
 	while (1)
@@ -454,8 +460,8 @@ void turn_left(void){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=18;
-	float D=10;
+	float P=12;
+	float D=7;
 	//short I=1;
 	short now =0;
 	float SPEED=20000;
@@ -463,7 +469,13 @@ void turn_left(void){
 	short wait_time=6000;
 
 	Mtr_Run_lv(SPEED,-0.4*SPEED,0,0,0,0);
-	Wait(150);
+	while (1){
+		if (ADRead(0)<=300)
+		{
+			break;
+		}
+		
+	}
 	motor_stop();
 
 	while (1)
@@ -499,7 +511,7 @@ void turn_left(void){
 		if (SPEED<=5000)
 		{	
 			counter = counter+1;
-			if (counter==1500)
+			if (counter==500)
 			{
 				/* code */
 			past=0;
@@ -528,9 +540,9 @@ void move(void)
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=4.5;
-	int base_speed=3000;
-	int left_base_speed = 3000;
+	float SPEED=4.2;
+	int base_speed=1800;
+	int left_base_speed = 1800;
 	int counter =0;
 	//ループ
 	while(1){
@@ -557,7 +569,7 @@ void move(void)
 		if ((SPEED*(left_pid+right_pid))<=4000){
 			counter +=1;
 			Mtr_Run_lv(right_SPEED*(base_speed+SPEED*right_pid),left_SPEED*(left_base_speed+SPEED*left_pid),0,0,0,0);
-			if (counter==3000)
+			if (counter>=4000)
 			{	
 				motor_stop();	
 				return;
@@ -598,6 +610,22 @@ void U_turn(int mode){
 	
 }
 
+void Uturn(int mode){
+	if (mode==1)
+	{	
+		turnleft();
+		move();
+		turnleft();
+	}
+	else{
+		turnright();
+		move();
+		turnright();
+
+	}
+	
+}
+
 void go_to(int i){
 
 	while (i>1)
@@ -614,18 +642,29 @@ void turnleft(){
 	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=30;
-	float D=12;
+	float P=12;
+	float D=7;
 	//short I=1;
 	short now =0;
-	float SPEED=0;
+	float SPEED=20000;
 	short counter=0;
 	short wait_time=6000;
+
+	Mtr_Run_lv(SPEED,-0.4*SPEED,0,0,0,0);
+	while (1){
+		if (ADRead(0)<=300)
+		{
+			break;
+		}
+		
+	}
+	motor_stop();
+
 	while (1)
 	{
-		right = ADRead(1);
+		left = ADRead(0);
 
-		now = 880 - right;
+		now = 880 - left;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
@@ -646,15 +685,15 @@ void turnleft(){
 
 	while (1)
 	{
-		right = ADRead(1);
-		now=right-250;
+		left = ADRead(0);
+		now=left-250;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
 		past=now;
 		if (SPEED<=5000)
 		{	
 			counter = counter+1;
-			if (counter==1500)
+			if (counter==500)
 			{
 				/* code */
 			past=0;
@@ -667,21 +706,32 @@ void turnleft(){
 }
 
 void turnright(void){
-	short left = ADRead(0);
+		short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
-	float P=30;
-	float D=12;
+	float P=12;
+	float D=7;
 	//short I=1;
 	short now =0;
-	float SPEED=0;
+	float SPEED=20000;
 	short counter=0;
 	short wait_time=6000;
+
+	Mtr_Run_lv(0.4*SPEED,-SPEED,0,0,0,0);
+	while (1){
+		if (ADRead(1)<=300)
+		{
+			break;
+		}
+		
+	}
+	motor_stop();
+	
 	while (1)
 	{
-		left = ADRead(0);
+		right = ADRead(1);
 
-		now = 880 - left;
+		now = 880 - right;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
@@ -696,16 +746,14 @@ void turnright(void){
 			past=0;
 			counter=0;
 			break;
-			}
-			
-			
+			}		
 		}
 	}
 
 	while (1)
 	{
-		left = ADRead(0);
-		now=left-250;
+		right = ADRead(1);
+		now=right-250;
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
 		past=now;
@@ -718,10 +766,11 @@ void turnright(void){
 			past=0;
 			counter=0;
 			motor_stop();
-			return;
+			break;
 			}
 		}
 	}
+
 	
 }
 
@@ -731,30 +780,31 @@ void easy_road(void){
 	go_to(3);
 	U_turn(1);
 	go_to(3);
-	U_turn(0);
+	Uturn(0);
 	go_to(1);
-	U_turn(0);
+	Uturn(0);
 	//check point c over, robot will in (3,2)
 	go_to(2);
 	turn_right();
 	go_to(3);
 	U_turn(0);
 	go_to(2);
-	U_turn(0);
+	Uturn(0);
 	//check point b over, robot will in (2,0)
 	go_to(2);
 	turn_right();
 	go_to(3);
-	U_turn(0);
+	turn_right();
+	move();
+	turnright();
 	go_to(2);
 	//need use old type turn to U turn
-	turnright();
-	move();
-	turn_right();
+	Uturn(0);
 	//check point a over,robot will in (0,1)
 	go_to(3);
 	//goal?
-	pass();
+	turnright();
+	move();
 	BuzzerStart();
 }
 
@@ -765,6 +815,7 @@ void hard_road(void){
 	//turn right failed 
 	turn_right();
 	//turn right failed
+	/*
 	go_to(3);
 	turn_left();
 	move();
@@ -782,6 +833,11 @@ void hard_road(void){
 	move();
 	pass();
 	move();
+	*/
+}
+
+void hard_turn(void){
+
 }
 #define ADC_DONE		0x80000000
 #define ADC_OVERRUN		0x40000000
