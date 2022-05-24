@@ -14,22 +14,64 @@ void main(void)
 	//制御周期の設定[単位：Hz　範囲：30.0~]
 	const unsigned short MainCycle = 60;
 	Init(MainCycle);		//CPUの初期設定
-	int SPEED = 20000;
-	short left = ADRead(0);
-	short right = ADRead(1);
+	int type;
+	int counter=0;
 	while (1)
 	{
 	LED(3);
 	while(getSW() != 1);	//ボタンが押されるまで待つ
 	while(getSW() == 1);	//ボタンが離されるまで待つ
+	LED(0);
+	type=0;
+	BuzzerStart();
 
-	easy_road();
+	while (counter<=30)
+	{
+		if (getSW()==1)
+		{
+			type +=1;
+			if (type>3)
+			{
+				type=0;
+			}
+			while(getSW() == 1);
+			counter=0;						
+		}
+
+		LED(type);
+		counter+=1;
+		Wait(100);		
+	}
+	counter=0;
+	BuzzerStop();
+	while(getSW() != 1);	//ボタンが押されるまで待つ
+	while(getSW() == 1);
+	if (type==0)
+	{
+		easy_road();
+	}
+	else{
+		hard_road(type-1);
+	}
+	
+
+
+
+	
+
+
+	}
+	
+	
+
 	
 
 
 
 
-	}
+
+
+	
 }
 
 

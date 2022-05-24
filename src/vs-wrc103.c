@@ -540,7 +540,7 @@ void move(void)
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=4.2;
+	float SPEED=5;
 	int base_speed=1800;
 	int left_base_speed = 1800;
 	int counter =0;
@@ -706,7 +706,7 @@ void turnleft(){
 }
 
 void turnright(void){
-		short left = ADRead(0);
+	short left = ADRead(0);
 	short right = ADRead(1);
 	short past=0;
 	float P=12;
@@ -808,32 +808,66 @@ void easy_road(void){
 	BuzzerStart();
 }
 
-void hard_road(void){
+void hard_road(int mode){
 	go_to(4);
 	U_turn(1);
 	go_to(3);
-	//turn right failed 
-	turn_right();
-	//turn right failed
-	/*
-	go_to(3);
-	turn_left();
-	move();
-	turn_left();
-	go_to(2);
-	turn_left();
-	go_to(4);
-	turn_left();
-	go_to(2);
-	turn_left();
-	go_to(1);
-	turn_left();
-	go_to(1);
-	turn_right();
+	//(1,1)
+	Mtr_Run_lv(0.4*20000,-20000,0,0,0,0);
+	Wait(600);
 	move();
 	pass();
 	move();
-	*/
+	turnleft();
+	move();
+	//(0,3)
+	turnright();
+	go_to(1);
+	//check point left
+	turnright();
+	move();
+	turn_right();
+	go_to(2);
+	turnleft();
+	go_to(2);
+	//(3,2)
+	Mtr_Run_lv(20000,-0.4*20000,0,0,0,0);
+	Wait(600);
+	move();
+	turnright();
+	move();
+	turnleft();
+	move();
+	//check point right
+	if (mode==0)
+	{
+		turnleft();
+		move();
+		turnleft();
+		move();
+		turn_right();
+		move();
+		pass();
+		move();
+	}
+	else if (mode==1)
+	{
+		turnleft();
+		go_to(2);
+		pass();
+		move();
+	}
+	else if (mode==2)
+	{
+		turn_left();
+		go_to(2);
+		turn_left();
+		move();
+		pass();
+	}
+	
+	
+	
 }
 
 void hard_turn(void){
