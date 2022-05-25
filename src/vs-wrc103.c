@@ -407,7 +407,7 @@ void turn_right(void){
 	{
 		right = ADRead(1);
 
-		now = 880 - right;
+		now = 800 - right;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(0,-SPEED,0,0,0,0);
@@ -482,7 +482,7 @@ void turn_left(void){
 	{
 		left = ADRead(0);
 
-		now = 880 - left;
+		now = 800 - left;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,0,0,0,0,0);
@@ -530,12 +530,12 @@ void move(void)
 	float pastAD0=0;
 	float pastAD1=0;
 	//制御目標値
-	short MID=850;
+	short MID=920;
 	short right_MID=400;
 	short left_MID=400;
 	//ゲイン係数
 	float P=8.2;
-	float D=5.3;
+	float D=6.1;
 	//モーター方向調整
 	short left_SPEED=-1;
 	short right_SPEED=1;
@@ -664,7 +664,7 @@ void turnleft(){
 	{
 		left = ADRead(0);
 
-		now = 880 - left;
+		now = 800 - left;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(SPEED,SPEED,0,0,0,0);
@@ -731,7 +731,7 @@ void turnright(void){
 	{
 		right = ADRead(1);
 
-		now = 880 - right;
+		now = 800 - right;
 
 		SPEED = P*now+D*(now-past);
 		Mtr_Run_lv(-SPEED,-SPEED,0,0,0,0);
@@ -813,7 +813,7 @@ void hard_road(int mode){
 	U_turn(1);
 	go_to(3);
 	//(1,1)
-	Mtr_Run_lv(0.5*15000,-15000,0,0,0,0);
+	Mtr_Run_lv(0.4*15000,-15000,0,0,0,0);
 	Wait(650);
 	move();
 	pass();
@@ -831,7 +831,7 @@ void hard_road(int mode){
 	turnleft();
 	go_to(2);
 	//(3,2)
-	Mtr_Run_lv(15000,-0.5*15000,0,0,0,0);
+	Mtr_Run_lv(15000,-0.4*15000,0,0,0,0);
 	Wait(650);
 	move();
 	turnright();
@@ -848,9 +848,6 @@ void hard_road(int mode){
 		turn_right();
 		move();
 		pass();
-		move();
-		pass();
-		pass();
 		pass();
 		BuzzerStart();
 	}
@@ -858,8 +855,6 @@ void hard_road(int mode){
 	{
 		turnleft();
 		go_to(2);
-		pass();
-		pass();
 		pass();
 		pass();
 		BuzzerStart();
@@ -870,7 +865,6 @@ void hard_road(int mode){
 		go_to(2);
 		turn_left();
 		move();
-		pass();
 		pass();
 		pass();
 		BuzzerStart();
