@@ -19,6 +19,7 @@ void main(void)
 	while (1)
 	{
 	LED(3);
+	BuzzerStop();
 	while(getSW() != 1);	//ボタンが押されるまで待つ
 	while(getSW() == 1);	//ボタンが離されるまで待つ
 	LED(0);

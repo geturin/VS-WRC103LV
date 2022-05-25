@@ -540,7 +540,7 @@ void move(void)
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=4;
+	float SPEED=3.5;
 	int base_speed=2000;
 	int left_base_speed = 2000;
 	int counter =0;
@@ -813,7 +813,7 @@ void hard_road(int mode){
 	U_turn(1);
 	go_to(3);
 	//(1,1)
-	Mtr_Run_lv(0.4*20000,-20000,0,0,0,0);
+	Mtr_Run_lv(0.5*15000,-15000,0,0,0,0);
 	Wait(650);
 	move();
 	pass();
@@ -831,7 +831,7 @@ void hard_road(int mode){
 	turnleft();
 	go_to(2);
 	//(3,2)
-	Mtr_Run_lv(20000,-0.4*20000,0,0,0,0);
+	Mtr_Run_lv(15000,-0.5*15000,0,0,0,0);
 	Wait(650);
 	move();
 	turnright();
@@ -849,13 +849,20 @@ void hard_road(int mode){
 		move();
 		pass();
 		move();
+		pass();
+		pass();
+		pass();
+		BuzzerStart();
 	}
 	else if (mode==1)
 	{
 		turnleft();
 		go_to(2);
 		pass();
-		move();
+		pass();
+		pass();
+		pass();
+		BuzzerStart();
 	}
 	else if (mode==2)
 	{
@@ -864,6 +871,9 @@ void hard_road(int mode){
 		turn_left();
 		move();
 		pass();
+		pass();
+		pass();
+		BuzzerStart();
 	}
 	
 	
