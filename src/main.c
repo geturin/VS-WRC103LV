@@ -25,7 +25,7 @@ void main(void)
 	type=0;
 	BuzzerStart();
 
-	while (counter<=30)
+	while (counter<=20)
 	{
 		if (getSW()==1)
 		{

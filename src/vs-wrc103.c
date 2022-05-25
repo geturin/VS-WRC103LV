@@ -534,15 +534,15 @@ void move(void)
 	short right_MID=400;
 	short left_MID=400;
 	//ゲイン係数
-	float P=9;
-	float D=5;
+	float P=8.2;
+	float D=5.3;
 	//モーター方向調整
 	short left_SPEED=-1;
 	short right_SPEED=1;
 	//速度調整
-	float SPEED=3.9;
-	int base_speed=1800;
-	int left_base_speed = 1800;
+	float SPEED=4;
+	int base_speed=2000;
+	int left_base_speed = 2000;
 	int counter =0;
 	//ループ
 	while(1){
@@ -566,10 +566,10 @@ void move(void)
 			right_pid = -2000;
 		}
 		
-		if ((SPEED*(left_pid+right_pid))<=4000){
+		if (SPEED*left_pid<=0 && SPEED*right_pid<=0){
 			counter +=1;
 			Mtr_Run_lv(right_SPEED*(base_speed+SPEED*right_pid),left_SPEED*(left_base_speed+SPEED*left_pid),0,0,0,0);
-			if (counter>=4000)
+			if (counter>=1400)
 			{	
 				motor_stop();	
 				return;
