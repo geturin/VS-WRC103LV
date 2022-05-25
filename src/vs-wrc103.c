@@ -814,7 +814,7 @@ void hard_road(int mode){
 	go_to(3);
 	//(1,1)
 	Mtr_Run_lv(0.4*15000,-15000,0,0,0,0);
-	Wait(650);
+	Wait(500);
 	move();
 	pass();
 	move();
@@ -832,7 +832,7 @@ void hard_road(int mode){
 	go_to(2);
 	//(3,2)
 	Mtr_Run_lv(15000,-0.4*15000,0,0,0,0);
-	Wait(650);
+	Wait(500);
 	move();
 	turnright();
 	move();
